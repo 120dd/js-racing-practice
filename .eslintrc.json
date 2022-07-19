@@ -1,0 +1,18 @@
+{
+  "env": {
+    "browser": true,
+    "node": true,
+    "mocha": true
+  },
+  "extends": "airbnb",
+  "plugins": [
+    "mocha"
+  ],
+  "rules": {
+    "no-console": "error",
+    "import/prefer-default-export": "off",
+    "import/extensions": [
+      "off"
+    ]
+  }
+}
