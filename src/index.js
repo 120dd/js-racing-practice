@@ -33,14 +33,13 @@ class RacingGame {
     });
   }
 
-  play(carsArray, count) {
-    console.log(carsArray);
-    console.log(count);
+  play(cars, count) {
     for (let i = 0; i < count; i++) {
-      carsArray.forEach((car) => {
-        this.gameUi.showResult(car);
+      cars.forEach((car) => {
+        this.gameUi.showResult(car.name, car.position);
       });
     }
+    this.gameUi.showWinner(this.cars[0].name);
   }
 }
 
