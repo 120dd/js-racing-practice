@@ -1,4 +1,5 @@
 import { GameUi } from './ui.js';
+import { Car } from './car.js';
 
 class RacingGame {
   constructor() {
@@ -15,7 +16,10 @@ class RacingGame {
     this.gameUi.carsNamesSubmitHandler((e) => {
       e.preventDefault();
       const rowNames = this.gameUi.carNamesInputValue();
-      this.cars = rowNames.split(',');
+      const carNameArray = rowNames.split(',');
+      carNameArray.forEach((name) => {
+        this.cars.push(new Car(name));
+      });
     });
   }
 
@@ -27,6 +31,16 @@ class RacingGame {
       this.count = Number(this.gameUi.racingCountInputValue());
       this.play(this.cars, this.count);
     });
+  }
+
+  play(carsArray, count) {
+    console.log(carsArray);
+    console.log(count);
+    for (let i = 0; i < count; i++) {
+      carsArray.forEach((car) => {
+        this.gameUi.showResult(car);
+      });
+    }
   }
 }
 
