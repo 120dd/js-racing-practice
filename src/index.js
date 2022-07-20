@@ -9,37 +9,26 @@ class RacingGame {
   }
 
   /**
-   * 확인 버튼을 눌렀을 때, 새로고침을 막아줌
+   * 확인 버튼을 눌렀을 때, 새로고침 방지
    */
-  preventSubmit() {
-    this.gameUi.racingFormSubmit((e) => { e.preventDefault(); });
-  }
-
-  /**
-   * 이름 확인 버튼을 눌렀을 때 cars 객체를 만듦
-   */
-  pressNameSubmitButton() {
-    this.gameUi.carsNamesSubmitHandler((e) => {
-      e.preventDefault();
-      const rowNames = this.gameUi.carNamesInputValue();
-      const carNameArray = rowNames.split(',');
-      carNameArray.forEach((name) => {
+  initialize() {
+    this.gameUi.initialize();
+    this.gameUi.setCarNamesUpdateHandler((carNames) => {
+      carNames.forEach((name) => {
         this.cars.push(new Car(name));
       });
     });
-  }
-
-  /**
-   * 시도할 횟수 확인 버튼을 눌렀을 때 실행 결과를 출력
-   */
-  pressCountSubmitButton() {
-    this.gameUi.racingCounterSubmitHandler((e) => {
-      e.preventDefault();
-      this.count = Number(this.gameUi.racingCountInputValue());
+    this.gameUi.setCountUpdateHandler((count) => {
+      this.count = count;
       this.play(this.cars, this.count);
     });
   }
 
+  /**
+   * 인풋을 받아 게임 결과와 우승자를 출력
+   * @param [cars] cars
+   * @param count
+   */
   play(cars, count) {
     for (let i = 0; i < count; i++) {
       cars.forEach((car) => {
@@ -51,6 +40,4 @@ class RacingGame {
 }
 
 const racingGame = new RacingGame();
-racingGame.preventSubmit();
-racingGame.pressNameSubmitButton();
-racingGame.pressCountSubmitButton();
+racingGame.initialize();

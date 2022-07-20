@@ -11,42 +11,33 @@ export class GameUi {
 
   /**
    * RACING_FORM 이 제출 되었을 때 인풋을 실행
-   * @param {function} fn
    */
-  racingFormSubmit(fn) {
-    this.RACING_FORM.onsubmit = fn;
+  initialize() {
+    this.RACING_FORM.onsubmit = (e) => { e.preventDefault(); };
   }
 
   /**
-   * CAR_NAMES_INPUT 의 value 를 리턴
-   * @return {string}
+   * CAR_NAMES_SUBMIT 을 누르면 callback을 호출
+   * @param {function} callback
    */
-  carNamesInputValue() {
-    return this.CAR_NAMES_INPUT.value;
+  setCarNamesUpdateHandler(callback) {
+    this.CAR_NAMES_SUBMIT.onclick = (e) => {
+      e.preventDefault();
+      const carNames = this.CAR_NAMES_INPUT.value.split(',');
+      callback(carNames);
+    };
   }
 
   /**
-   * CAR_NAMES_SUBMIT 을 클릭했을 때 인풋을 실행
-   * @param {function} fn
+   * RACING_COUNTER_SUBMIT 을 누르면 callback을 호출
+   * @param {function} callback
    */
-  carsNamesSubmitHandler(fn) {
-    this.CAR_NAMES_SUBMIT.onclick = fn;
-  }
-
-  /**
-   * RACING_COUNTER_INPUT 의 value 를 리턴
-   * @return {string}
-   */
-  racingCountInputValue() {
-    return this.RACING_COUNTER_INPUT.value;
-  }
-
-  /**
-   * RACING_COUNTER_SUBMIT 을 클릭했을 때 인풋을 실행
-   * @param {function} fn
-   */
-  racingCounterSubmitHandler(fn) {
-    this.RACING_COUNTER_SUBMIT.onclick = fn;
+  setCountUpdateHandler(callback) {
+    this.RACING_COUNTER_SUBMIT.onclick = (e) => {
+      e.preventDefault();
+      const count = Number(this.RACING_COUNTER_INPUT.value);
+      callback(count);
+    };
   }
 
   /**
