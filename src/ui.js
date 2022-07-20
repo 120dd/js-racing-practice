@@ -9,12 +9,8 @@ export class GameUi {
     this.RACING_WINNER = document.querySelector('#racing-winners');
   }
 
-  /**
-   * RACING_FORM 이 제출 되었을 때 인풋을 실행
-   * @param {function} fn
-   */
-  racingFormSubmit(fn) {
-    this.RACING_FORM.onsubmit = fn;
+  initialize() {
+    this.RACING_FORM.onsubmit = (e) => { e.preventDefault(); }
   }
 
   /**

@@ -8,11 +8,8 @@ class RacingGame {
     this.gameUi = new GameUi();
   }
 
-  /**
-   * 확인 버튼을 눌렀을 때, 새로고침을 막아줌
-   */
-  preventSubmit() {
-    this.gameUi.racingFormSubmit((e) => { e.preventDefault(); });
+  initialize() {
+    this.gameUi.initialize();
   }
 
   /**
@@ -51,6 +48,5 @@ class RacingGame {
 }
 
 const racingGame = new RacingGame();
-racingGame.preventSubmit();
 racingGame.pressNameSubmitButton();
 racingGame.pressCountSubmitButton();
