@@ -10,17 +10,8 @@ class RacingGame {
 
   initialize() {
     this.gameUi.initialize();
-  }
-
-  /**
-   * 이름 확인 버튼을 눌렀을 때 cars 객체를 만듦
-   */
-  pressNameSubmitButton() {
-    this.gameUi.carsNamesSubmitHandler((e) => {
-      e.preventDefault();
-      const rowNames = this.gameUi.carNamesInputValue();
-      const carNameArray = rowNames.split(',');
-      carNameArray.forEach((name) => {
+    this.gameUi.setCarNamesUpdateHandler(carNames => {
+      carNames.forEach((name) => {
         this.cars.push(new Car(name));
       });
     });
@@ -48,5 +39,7 @@ class RacingGame {
 }
 
 const racingGame = new RacingGame();
-racingGame.pressNameSubmitButton();
+
+racingGame.initialize();
+// TODO: refactoring
 racingGame.pressCountSubmitButton();

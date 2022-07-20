@@ -13,6 +13,19 @@ export class GameUi {
     this.RACING_FORM.onsubmit = (e) => { e.preventDefault(); }
   }
 
+  /** Car name 이 변경되면 callback 을 호출합니다.
+   * @param {function} cb string[] => void
+   */
+  setCarNamesUpdateHandler(cb) {
+    this.CAR_NAMES_SUBMIT.onclick = e => {
+      e.preventDefault();
+
+      const carNames = this.CAR_NAMES_INPUT.value.split(',');
+
+      cb(carNames);
+    }
+  }
+
   /**
    * CAR_NAMES_INPUT 의 value 를 리턴
    * @return {string}
