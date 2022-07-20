@@ -9,22 +9,42 @@ export class GameUi {
     this.RACING_WINNER = document.querySelector('#racing-winners');
   }
 
+  /**
+   * RACING_FORM 이 제출 되었을 때 인풋을 실행
+   * @param {function} fn
+   */
   racingFormSubmit(fn) {
     this.RACING_FORM.onsubmit = fn;
   }
 
+  /**
+   * CAR_NAMES_INPUT 의 value 를 리턴
+   * @return {string}
+   */
   carNamesInputValue() {
     return this.CAR_NAMES_INPUT.value;
   }
 
+  /**
+   * CAR_NAMES_SUBMIT 을 클릭했을 때 인풋을 실행
+   * @param {function} fn
+   */
   carsNamesSubmitHandler(fn) {
     this.CAR_NAMES_SUBMIT.onclick = fn;
   }
 
+  /**
+   * RACING_COUNTER_INPUT 의 value 를 리턴
+   * @return {string}
+   */
   racingCountInputValue() {
     return this.RACING_COUNTER_INPUT.value;
   }
 
+  /**
+   * RACING_COUNTER_SUBMIT 을 클릭했을 때 인풋을 실행
+   * @param {function} fn
+   */
   racingCounterSubmitHandler(fn) {
     this.RACING_COUNTER_SUBMIT.onclick = fn;
   }

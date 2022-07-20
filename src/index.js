@@ -8,10 +8,16 @@ class RacingGame {
     this.gameUi = new GameUi();
   }
 
+  /**
+   * 확인 버튼을 눌렀을 때, 새로고침을 막아줌
+   */
   preventSubmit() {
     this.gameUi.racingFormSubmit((e) => { e.preventDefault(); });
   }
 
+  /**
+   * 이름 확인 버튼을 눌렀을 때 cars 객체를 만듦
+   */
   pressNameSubmitButton() {
     this.gameUi.carsNamesSubmitHandler((e) => {
       e.preventDefault();
@@ -23,8 +29,9 @@ class RacingGame {
     });
   }
 
-  /** 시도할 횟수 확인 버튼을 눌렀을 때 실행 결과를 출력
-   * */
+  /**
+   * 시도할 횟수 확인 버튼을 눌렀을 때 실행 결과를 출력
+   */
   pressCountSubmitButton() {
     this.gameUi.racingCounterSubmitHandler((e) => {
       e.preventDefault();
