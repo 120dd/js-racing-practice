@@ -48,14 +48,23 @@ export class GameUi {
   showResult(carName, carPosition) {
     const resultElement = document.createElement('p');
     const name = document.createTextNode(`${carName}: `);
-    let positon = '';
-    if (carPosition !== 0) {
-      positon = '-'.repeat(carPosition);
-    }
-    const position = document.createTextNode(positon);
+    const position = document.createTextNode(this.getPosition(carPosition));
     resultElement.appendChild(name);
     resultElement.appendChild(position);
     this.RACING_RESULT.appendChild(resultElement);
+  }
+
+  /**
+   * 포지션 정보를 받아 출력할 스트링을 반환
+   * @param {number} carPosition
+   * @return {string}
+   */
+  getPosition(carPosition) {
+    let position = '';
+    if (carPosition !== 0) {
+      position = '-'.repeat(carPosition);
+    }
+    return position;
   }
 
   /**
