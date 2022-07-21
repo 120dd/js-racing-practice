@@ -31,28 +31,47 @@ export class GameUi {
     this.CAR_NAMES_SUBMIT.onclick = (e) => {
       e.preventDefault();
       if (!util.hasTarget(this.CAR_NAMES_INPUT.value, ',')) {
-        alert(', 를 사용해서 구분해주세요');
+        this.alertMessage(', 를 사용해서 구분해주세요');
         return;
       }
       if (!util.hasTarget(this.CAR_NAMES_INPUT.value, ',')) {
-        alert(', 를 사용해서 구분해주세요');
+        this.alertMessage(', 를 사용해서 구분해주세요');
         return;
       }
       if (!validation.checkCarNameLength(this.CAR_NAMES_INPUT.value)) {
-        alert('차량의 이름은 5 글자 까지만 가능합니다');
+        this.alertMessage('차량의 이름은 5 글자 까지만 가능합니다');
         return;
       }
       if (util.isDuplicate(util.convertStringToSplitArray(this.CAR_NAMES_INPUT.value, ','))) {
-        alert('차량의 이름이 중복되었습니다');
+        this.alertMessage('차량의 이름이 중복되었습니다');
         return;
       }
       if (util.hasEmpty(util.convertStringToSplitArray(this.CAR_NAMES_INPUT.value, ','))) {
-        alert('값의 양 끝에 , 가 있는지 확인해주세요');
+        this.alertMessage('값의 양 끝에 , 가 있는지 확인해주세요');
         return;
       }
+      // this.alertIfValidationFailed(
+      //   util.hasTarget(this.CAR_NAMES_INPUT.value, ','),
+      //   ', 를 사용해서 구분해주세요',
+      // );
+      //
+      // this.alertIfValidationFailed(
+      //   validation.checkCarNameLength(this.CAR_NAMES_INPUT.value),
+      //   '차량의 이름은 5 글자 까지만 가능합니다',
+      // );
+      //
+      // this.alertIfValidationFailed(
+      //   !util.isDuplicate(util.convertStringToSplitArray(this.CAR_NAMES_INPUT.value, ',')),
+      //   '차량의 이름이 중복되었습니다',
+      // );
+      //
+      // this.alertIfValidationFailed(
+      //   !util.hasEmpty(util.convertStringToSplitArray(this.CAR_NAMES_INPUT.value, ',')),
+      //   '값의 양 끝에 , 가 있는지 확인해주세요',
+      // );
       const carNames = this.CAR_NAMES_INPUT.value.split(',');
       callback(carNames);
-      alert('차량 설정이 완료되었습니다');
+      this.alertMessage('차량 설정이 완료되었습니다');
     };
   }
 
@@ -90,6 +109,16 @@ export class GameUi {
     this.RACING_RESULT.appendChild(resultElement);
   }
 
+  alertIfValidationFailed(isValidChecker, message) {
+    if (typeof isValidChecker === 'boolean' && !isValidChecker) {
+      this.alertMessage(message);
+      return;
+    }
+    if (typeof isValidChecker !== 'boolean' && !isValidChecker()) {
+      this.alertMessage(message);
+    }
+  }
+
   /**
    * 포지션 정보를 받아 출력할 스트링을 반환
    * @param {number} carPosition
@@ -113,5 +142,13 @@ export class GameUi {
       return;
     }
     this.RACING_WINNER.innerHTML = `${this.RACING_WINNER.innerHTML}, ${winner}`;
+  }
+
+  /**
+   * 사용자에게 오류를 보여줍니다.
+   * @param {string} message
+   */
+  alertMessage(message) {
+    alert(message);
   }
 }

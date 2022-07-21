@@ -19,7 +19,7 @@ class RacingGame {
     this.gameUi.setCountUpdateHandler((count) => {
       this.count = count;
       if (this.cars.length === 0) {
-        alert('자동차 이름을 입력해주세요');
+        this.gameUi.alertMessage('자동차 이름을 입력해주세요');
         return;
       }
       this.play(this.cars, this.count);
@@ -28,7 +28,7 @@ class RacingGame {
 
   /**
    * 인풋을 받아 게임 결과와 우승자를 출력
-   * @param [cars] cars
+   * @param {[cars]} cars
    * @param count
    */
   play(cars, count) {
@@ -38,6 +38,14 @@ class RacingGame {
         this.gameUi.showResult(car.name, car.position);
       });
     }
+    this.getWinners(cars);
+  }
+
+  /**
+   * 차량들의 정보를 받아, 우승자 출력
+   * @param {[cars]} cars
+   */
+  getWinners(cars) {
     const positions = [];
     cars.map((car) => {
       positions.push(car.position);
