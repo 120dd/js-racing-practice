@@ -124,9 +124,17 @@ export class GameUi {
    */
   alertIfValidationFailed(isValidChecker, message) {
     if (typeof isValidChecker === 'boolean' && !isValidChecker) {
-      alert(message);
+      this.alertMessage(message);
     } else if (!isValidChecker()) {
-      alert(message);
+      this.alertMessage(message);
     }
+  }
+
+  /**
+   * 사용쟈에게 오류를 보여줍니다.
+   * @param {string} message
+   */
+  alertMessage(message) {
+    alert(message);
   }
 }

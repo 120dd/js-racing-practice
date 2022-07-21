@@ -19,7 +19,7 @@ class RacingGame {
     this.gameUi.setCountUpdateHandler((count) => {
       this.count = count;
       if (this.cars.length === 0) {
-        alert('자동차 이름을 입력해주세요');
+        this.gameUi.alertMessage('자동차 이름을 입력해주세요');
         return;
       }
       this.play(this.cars, this.count);
