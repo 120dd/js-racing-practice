@@ -38,6 +38,14 @@ class RacingGame {
         this.gameUi.showResult(car.name, car.position);
       });
     }
+    const positions = [];
+    cars.map((car) => {
+      positions.push(car.position);
+    });
+    const max = positions.reduce((m, n) => Math.max(m, n));
+    const maxIndex = [...positions.keys()].filter((i) => positions[i] === max);
+    console.log(positions);
+    console.log(maxIndex);
     this.gameUi.showWinner(this.cars[0].name);
   }
 }
