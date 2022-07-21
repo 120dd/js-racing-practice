@@ -20,6 +20,7 @@ export class GameUi {
    */
   initialize() {
     this.RACING_FORM.onsubmit = (e) => { e.preventDefault(); };
+    this.RACING_WINNER.innerHTML = '';
   }
 
   /**
@@ -107,6 +108,10 @@ export class GameUi {
    * @param {string} winner
    */
   showWinner(winner) {
-    this.RACING_WINNER.innerHTML = winner;
+    if (this.RACING_WINNER.innerHTML === '') {
+      this.RACING_WINNER.innerHTML = this.RACING_WINNER.innerHTML + winner;
+      return;
+    }
+    this.RACING_WINNER.innerHTML = `${this.RACING_WINNER.innerHTML}, ${winner}`;
   }
 }
