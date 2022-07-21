@@ -47,4 +47,13 @@ export class Util {
   hasEmpty(array) {
     return !array.every((el) => el);
   }
+
+  /**
+   * 숫자가 양수인지 확인
+   * @param {number} num
+   * @return {boolean}
+   */
+  isPositiveNumber(num) {
+    return num > 0;
+  }
 }

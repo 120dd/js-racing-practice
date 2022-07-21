@@ -63,6 +63,14 @@ export class GameUi {
     this.RACING_COUNTER_SUBMIT.onclick = (e) => {
       e.preventDefault();
       const count = Number(this.RACING_COUNTER_INPUT.value);
+      if (!util.isPositiveNumber(count)) {
+        alert('시도 횟수는 0보다 커야합니다');
+        return;
+      }
+      if (!Number.isInteger(count)) {
+        alert('시도 횟수는 소수점을 포함할 수 없습니다');
+        return;
+      }
       callback(count);
     };
   }

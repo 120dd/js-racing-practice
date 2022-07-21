@@ -61,8 +61,20 @@ describe('util.js', () => {
       assert.ok(result === true);
     });
 
-    it('배열에 빈스트링이 없을 경우 false 를 리턴해야한다', () => {
+    it('배열에 빈스트링이 없을 경우 false 를 리턴 해야한다', () => {
       const result = util.hasEmpty(['a', 'b']);
+      assert.ok(result === false);
+    });
+  });
+
+  describe('#isPositiveNumber(num)', () => {
+    it('num 이 양수일 경우 true 를 리턴 해야한다', () => {
+      const result = util.isPositiveNumber(8);
+      assert.ok(result === true);
+    });
+
+    it('num 이 음수일 경우 false 를 리턴 해야한다', () => {
+      const result = util.isPositiveNumber(-2);
       assert.ok(result === false);
     });
   });

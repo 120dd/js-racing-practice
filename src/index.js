@@ -15,10 +15,13 @@ class RacingGame {
       carNames.forEach((name) => {
         this.cars.push(new Car(name));
       });
-      console.log(this.cars);
     });
     this.gameUi.setCountUpdateHandler((count) => {
       this.count = count;
+      if (this.cars.length === 0) {
+        alert('자동차 이름을 입력해주세요');
+        return;
+      }
       this.play(this.cars, this.count);
     });
   }
