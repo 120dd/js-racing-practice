@@ -44,12 +44,9 @@ class RacingGame {
     });
     const max = positions.reduce((m, n) => Math.max(m, n));
     const maxIndex = [...positions.keys()].filter((i) => positions[i] === max);
-    console.log(positions);
-    console.log(maxIndex);
     maxIndex.forEach((index) => {
       this.gameUi.showWinner(this.cars[index].name);
     });
-    // this.gameUi.showWinner(this.cars[0].name);
   }
 }
 
