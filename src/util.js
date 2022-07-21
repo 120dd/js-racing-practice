@@ -56,4 +56,14 @@ export class Util {
   isPositiveNumber(num) {
     return num > 0;
   }
+
+  /**
+   * 범위에 포함되는 랜덤 값 생성
+   * @param min
+   * @param max
+   * @return {any}
+   */
+  getRandomNumberInRange(min, max) {
+    return MissionUtils.Random.pickNumberInRange(min, max);
+  }
 }
