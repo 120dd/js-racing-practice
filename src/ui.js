@@ -1,3 +1,9 @@
+import { Validation } from './validation.js';
+import { Util } from './util.js';
+
+const validation = new Validation();
+const util = new Util();
+
 export class GameUi {
   constructor() {
     this.RACING_FORM = document.querySelector('#racing-form');
@@ -23,8 +29,29 @@ export class GameUi {
   setCarNamesUpdateHandler(callback) {
     this.CAR_NAMES_SUBMIT.onclick = (e) => {
       e.preventDefault();
+      if (!util.hasTarget(this.CAR_NAMES_INPUT.value, ',')) {
+        alert(', 를 사용해서 구분해주세요');
+        return;
+      }
+      if (!util.hasTarget(this.CAR_NAMES_INPUT.value, ',')) {
+        alert(', 를 사용해서 구분해주세요');
+        return;
+      }
+      if (!validation.checkCarNameLength(this.CAR_NAMES_INPUT.value)) {
+        alert('차량의 이름은 5 글자 까지만 가능합니다');
+        return;
+      }
+      if (util.isDuplicate(util.convertStringToSplitArray(this.CAR_NAMES_INPUT.value, ','))) {
+        alert('차량의 이름이 중복되었습니다');
+        return;
+      }
+      if (util.hasEmpty(util.convertStringToSplitArray(this.CAR_NAMES_INPUT.value, ','))) {
+        alert('값의 양 끝에 , 가 있는지 확인해주세요');
+        return;
+      }
       const carNames = this.CAR_NAMES_INPUT.value.split(',');
       callback(carNames);
+      alert('차량 설정이 완료되었습니다');
     };
   }
 

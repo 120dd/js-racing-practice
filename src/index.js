@@ -8,15 +8,14 @@ class RacingGame {
     this.gameUi = new GameUi();
   }
 
-  /**
-   * 확인 버튼을 눌렀을 때, 새로고침 방지
-   */
   initialize() {
     this.gameUi.initialize();
     this.gameUi.setCarNamesUpdateHandler((carNames) => {
+      this.cars = [];
       carNames.forEach((name) => {
         this.cars.push(new Car(name));
       });
+      console.log(this.cars);
     });
     this.gameUi.setCountUpdateHandler((count) => {
       this.count = count;
