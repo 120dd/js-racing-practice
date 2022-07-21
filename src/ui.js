@@ -31,25 +31,33 @@ export class GameUi {
     this.CAR_NAMES_SUBMIT.onclick = (e) => {
       e.preventDefault();
 
-      this.alertIfValidationFailed(
+      if (this.alertIfValidationFailed(
         util.hasTarget(this.CAR_NAMES_INPUT.value, ','),
         ', 를 사용해서 구분해주세요',
-      );
+      )) {
+        return;
+      }
 
-      this.alertIfValidationFailed(
+      if (this.alertIfValidationFailed(
         validation.checkCarNameLength(this.CAR_NAMES_INPUT.value),
         '차량의 이름은 5 글자 까지만 가능합니다',
-      );
+      )) {
+        return;
+      }
 
-      this.alertIfValidationFailed(
+      if (this.alertIfValidationFailed(
         !util.isDuplicate(util.convertStringToSplitArray(this.CAR_NAMES_INPUT.value, ',')),
         '차량의 이름이 중복되었습니다',
-      );
+      )) {
+        return;
+      }
 
-      this.alertIfValidationFailed(
+      if (this.alertIfValidationFailed(
         !util.hasEmpty(util.convertStringToSplitArray(this.CAR_NAMES_INPUT.value, ',')),
         '값의 양 끝에 , 가 있는지 확인해주세요',
-      );
+      )) {
+        return;
+      }
 
       const carNames = this.CAR_NAMES_INPUT.value.split(',');
       callback(carNames);
@@ -121,13 +129,17 @@ export class GameUi {
    * validation 에 실패할 경우 오류 메세지를 사용자에게 보여줍니다.
    * @param {boolean | function} isValidChecker () => boolean (true 일 경우 valid, false 일 경우 invalid)
    * @param {string} message 보여지는 오류 메세지
+   * @return boolean return true, if alert
    */
   alertIfValidationFailed(isValidChecker, message) {
     if (typeof isValidChecker === 'boolean' && !isValidChecker) {
       this.alertMessage(message);
+      return true;
     } else if (!isValidChecker()) {
       this.alertMessage(message);
+      return true;
     }
+    return false;
   }
 
   /**
