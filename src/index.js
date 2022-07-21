@@ -34,6 +34,7 @@ class RacingGame {
   play(cars, count) {
     for (let i = 0; i < count; i++) {
       cars.forEach((car) => {
+        car.move();
         this.gameUi.showResult(car.name, car.position);
       });
     }
