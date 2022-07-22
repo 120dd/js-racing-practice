@@ -1,6 +1,4 @@
-import { Util } from './util.js';
-
-const util = new Util();
+import { getRandomNumberInRange } from './util.js';
 
 /**
  * 이름을 받아서 car 객체를 만드는 클래스
@@ -12,7 +10,7 @@ export class Car {
   }
 
   move() {
-    const randomNumber = util.getRandomNumberInRange(0, 9);
+    const randomNumber = getRandomNumberInRange(0, 9);
     if (randomNumber >= 4) {
       this.position++;
     }

@@ -1,8 +1,6 @@
 import { GameUi } from './ui.js';
 import { Car } from './car.js';
-import { Util } from './util.js';
-
-const util = new Util();
+import { isDuplicate } from './util.js';
 
 class RacingGame {
   constructor() {
@@ -68,7 +66,7 @@ class RacingGame {
   }
 
   isCarNameUnique(carNames) {
-    return !util.isDuplicate(carNames);
+    return !isDuplicate(carNames);
   }
 
   /**

@@ -1,6 +1,4 @@
-import { Util } from './util.js';
-
-const util = new Util();
+import { convertStringToSplitArray, hasEmpty, isPositiveNumber } from './util.js';
 
 export class GameUi {
   constructor() {
@@ -47,7 +45,7 @@ export class GameUi {
     this.RACING_COUNTER_SUBMIT.onclick = (e) => {
       e.preventDefault();
       const count = Number(this.RACING_COUNTER_INPUT.value);
-      if (!util.isPositiveNumber(count)) {
+      if (!isPositiveNumber(count)) {
         alert('시도 횟수는 0보다 커야합니다');
         return;
       }
@@ -120,7 +118,7 @@ export class GameUi {
     if (!input.includes(',')) {
       results.push(', 를 사용해서 구분해주세요');
     }
-    if (util.hasEmpty(util.convertStringToSplitArray(this.CAR_NAMES_INPUT.value, ','))) {
+    if (hasEmpty(convertStringToSplitArray(this.CAR_NAMES_INPUT.value, ','))) {
       results.push('값의 양 끝에 , 가 있는지 확인해주세요');
     }
     if (results.length === 0) {
