@@ -24,7 +24,7 @@ export function convertStringToSplitArray(rowName, separator) {
  * @param {number} length
  * @return {boolean}
  */
-export function isLengthCorrect(string, length) {
+export function isLenLessThanOrEqual(string, length) {
   return string.length <= length;
 }
 

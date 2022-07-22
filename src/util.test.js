@@ -1,6 +1,6 @@
 import assert from 'assert';
 import {
-  convertStringToSplitArray, hasEmpty, hasTarget, isDuplicate, isLengthCorrect, isPositiveNumber,
+  convertStringToSplitArray, hasEmpty, hasTarget, isDuplicate, isLenLessThanOrEqual, isPositiveNumber,
 } from './util';
 
 describe('js', () => {
@@ -31,14 +31,14 @@ describe('js', () => {
     });
   });
 
-  describe('#isLengthCorrect(string, length)', () => {
+  describe('#isLenLessThanOrEqual(string, length)', () => {
     it('string 의 길이가 length 이하일 경우 true 를 반환해야한다', () => {
-      const result = isLengthCorrect('slk55', 5);
+      const result = isLenLessThanOrEqual('slk55', 5);
       assert.ok(result === true);
     });
 
     it('string 의 길이가 length 초과일 경우 false 를 반환해야한다', () => {
-      const result = isLengthCorrect('slk200k', 6);
+      const result = isLenLessThanOrEqual('slk200k', 6);
       assert.ok(result === false);
     });
   });
