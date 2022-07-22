@@ -1,7 +1,5 @@
-import { Validation } from './validation.js';
 import { Util } from './util.js';
 
-const validation = new Validation();
 const util = new Util();
 
 export class GameUi {
@@ -30,13 +28,14 @@ export class GameUi {
   setCarNamesUpdateHandler(callback) {
     this.CAR_NAMES_SUBMIT.onclick = (e) => {
       e.preventDefault();
-      if (!this.validateNames()) {
+      const input = this.CAR_NAMES_INPUT.value;
+      const validationResult = this.validateCommaSeparatedInput(input);
+      if (validationResult) {
+        this.alertMessages(validationResult);
         return;
       }
-
-      const carNames = this.CAR_NAMES_INPUT.value.split(',');
+      const carNames = input.split(',');
       callback(carNames);
-      this.alertMessage('차량 설정이 완료되었습니다');
     };
   }
 
@@ -75,24 +74,6 @@ export class GameUi {
   }
 
   /**
-   * validation 에 실패할 경우 오류 메세지를 사용자에게 보여줍니다.
-   * @param {boolean || function} isValidChecker
-   * @param {string} message
-   * @return {boolean}
-   */
-  alertIfValidationFailed(isValidChecker, message) {
-    if (typeof isValidChecker === 'boolean' && !isValidChecker) {
-      this.alertMessage(message);
-      return true;
-    }
-    if (typeof isValidChecker !== 'boolean' && !isValidChecker()) {
-      this.alertMessage(message);
-      return true;
-    }
-    return false;
-  }
-
-  /**
    * 포지션 정보를 받아 출력할 스트링을 반환
    * @param {number} carPosition
    * @return {string}
@@ -119,29 +100,32 @@ export class GameUi {
 
   /**
    * 사용자에게 오류를 보여줍니다.
-   * @param {string} message
+   * @param {string || string[]} message
    */
-  alertMessage(message) {
-    alert(message);
+  alertMessages(message) {
+    if (typeof message === 'string') {
+      alert(message);
+      return;
+    }
+    alert(message.join('\n'));
   }
 
   /**
-   * 차량 이름 유효성 검사하는 함수
-   * @return {boolean}
+   * input form 으로 입력된 값이 올바른 comma-separated format 인지 확인
+   * @param input
+   * @return {undefined | string[]} validation 이 실패한 상세 오류 메세지
    */
-  validateNames() {
-    if (this.alertIfValidationFailed(util.hasTarget(this.CAR_NAMES_INPUT.value, ','), ', 를 사용해서 구분해주세요')) {
-      return false;
+  validateCommaSeparatedInput(input) {
+    const results = [];
+    if (!input.includes(',')) {
+      results.push(', 를 사용해서 구분해주세요');
     }
-    if (this.alertIfValidationFailed(validation.checkCarNameLength(this.CAR_NAMES_INPUT.value), '차량의 이름은 5 글자 까지만 가능합니다')) {
-      return false;
+    if (util.hasEmpty(util.convertStringToSplitArray(this.CAR_NAMES_INPUT.value, ','))) {
+      results.push('값의 양 끝에 , 가 있는지 확인해주세요');
     }
-    if (this.alertIfValidationFailed(!util.isDuplicate(util.convertStringToSplitArray(this.CAR_NAMES_INPUT.value, ',')), '차량의 이름이 중복되었습니다')) {
-      return false;
+    if (results.length === 0) {
+      return undefined;
     }
-    if (this.alertIfValidationFailed(!util.hasEmpty(util.convertStringToSplitArray(this.CAR_NAMES_INPUT.value, ',')), '값의 양 끝에 , 가 있는지 확인해주세요')) {
-      return false;
-    }
-    return true;
+    return results;
   }
 }
