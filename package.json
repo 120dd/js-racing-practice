@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "description": "우아한테크코스 프리코스 자동차 경주 게임 미션",
   "devDependencies": {
+    "@babel/preset-env": "^7.18.9",
+    "@babel/register": "^7.18.9",
     "babel-eslint": "^10.1.0",
     "cypress": "8.7.0",
     "eslint": "^8.20.0",
@@ -10,7 +12,8 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jsx-a11y": "^6.6.0",
     "eslint-plugin-mocha": "^10.0.5",
-    "eslint-plugin-react": "^7.30.1"
+    "eslint-plugin-react": "^7.30.1",
+    "mocha": "^10.0.0"
   },
   "scripts": {
     "test": "cypress run --browser chrome",

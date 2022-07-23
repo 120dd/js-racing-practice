@@ -1,3 +1,5 @@
+import { convertStringToSplitArray, hasEmpty, isPositiveNumber } from './util.js';
+
 export class GameUi {
   constructor() {
     this.RACING_FORM = document.querySelector('#racing-form');
@@ -14,6 +16,7 @@ export class GameUi {
    */
   initialize() {
     this.RACING_FORM.onsubmit = (e) => { e.preventDefault(); };
+    this.RACING_WINNER.innerHTML = '';
   }
 
   /**
@@ -23,7 +26,13 @@ export class GameUi {
   setCarNamesUpdateHandler(callback) {
     this.CAR_NAMES_SUBMIT.onclick = (e) => {
       e.preventDefault();
-      const carNames = this.CAR_NAMES_INPUT.value.split(',');
+      const input = this.CAR_NAMES_INPUT.value;
+      const validationResult = this.validateCommaSeparatedInput(input);
+      if (validationResult) {
+        this.alertMessages(validationResult);
+        return;
+      }
+      const carNames = input.split(',');
       callback(carNames);
     };
   }
@@ -36,6 +45,14 @@ export class GameUi {
     this.RACING_COUNTER_SUBMIT.onclick = (e) => {
       e.preventDefault();
       const count = Number(this.RACING_COUNTER_INPUT.value);
+      if (!isPositiveNumber(count)) {
+        alert('시도 횟수는 0보다 커야합니다');
+        return;
+      }
+      if (!Number.isInteger(count)) {
+        alert('시도 횟수는 소수점을 포함할 수 없습니다');
+        return;
+      }
       callback(count);
     };
   }
@@ -69,9 +86,44 @@ export class GameUi {
 
   /**
    * 인풋을 받아서 우승자란에 출력
-   * @param {string} winner
+   * @param {Car} winner
    */
   showWinner(winner) {
-    this.RACING_WINNER.innerHTML = winner;
+    if (this.RACING_WINNER.innerHTML === '') {
+      this.RACING_WINNER.innerHTML = this.RACING_WINNER.innerHTML + winner.name;
+      return;
+    }
+    this.RACING_WINNER.innerHTML = `${this.RACING_WINNER.innerHTML}, ${winner.name}`;
+  }
+
+  /**
+   * 사용자에게 오류를 보여줍니다.
+   * @param {string || string[]} message
+   */
+  alertMessages(message) {
+    if (typeof message === 'string') {
+      alert(message);
+      return;
+    }
+    alert(message.join('\n'));
+  }
+
+  /**
+   * input form 으로 입력된 값이 올바른 comma-separated format 인지 확인
+   * @param input
+   * @return {undefined | string[]} validation 이 실패한 상세 오류 메세지
+   */
+  validateCommaSeparatedInput(input) {
+    const results = [];
+    if (!input.includes(',')) {
+      results.push(', 를 사용해서 구분해주세요');
+    }
+    if (hasEmpty(convertStringToSplitArray(this.CAR_NAMES_INPUT.value, ','))) {
+      results.push('값의 양 끝에 , 가 있는지 확인해주세요');
+    }
+    if (results.length === 0) {
+      return undefined;
+    }
+    return results;
   }
 }
